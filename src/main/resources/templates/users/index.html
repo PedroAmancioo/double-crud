@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuarios</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">OmniRoute</a>
+            <div class="navbar-nav">
+                <a class="nav-link active" th:href="@{/users/index}">Usuários</a>
+                <a class="nav-link" th:href="@{/products/index}">Produtos</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container pt-3">
+        <a th:href="@{/users/new}" class="btn btn-outline-primary float-end">Novo Usuario</a>
+        <h1>Lista Usuarios (<span th:text="${size}"></span>)</h1>
+        <hr>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Arroba</th>
+                <th scope="col">CPF</th>
+                <th scope="col">Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${listUser}">
+                <th scope="row" th:text="${user.id}">1</th>
+                <td th:text="${user.name}">Mark</td>
+                <td th:text="${user.arroba}">Otto</td>
+                <td th:text="${user.cpf}">@mdo</td>
+                <td>
+                    <a th:href="@{/users/edit/{id}(id=${user.id})}" class="btn btn-sm btn-outline-warning">Editar</a>
+                    <a th:href="@{/users/delete/{id}(id=${user.id})}" class="btn btn-sm btn-outline-danger"
+                       onclick="return confirm('Tem certeza que deseja excluir este usuário?')">Excluir</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

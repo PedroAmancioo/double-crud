@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Produtos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">OmniRoute</a>
+            <div class="navbar-nav">
+                <a class="nav-link" th:href="@{/users/index}">Usuários</a>
+                <a class="nav-link active" th:href="@{/products/index}">Produtos</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container pt-3">
+        <a th:href="@{/products/new}" class="btn btn-outline-primary float-end">Novo Produto</a>
+        <h1>Lista Produtos (<span th:text="${size}"></span>)</h1>
+        <hr>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Preço</th>
+                <th scope="col">Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${listProduct}">
+                <th scope="row" th:text="${product.id}">1</th>
+                <td th:text="${product.name}">Notebook</td>
+                <td th:text="${product.description}">Descrição</td>
+                <td th:text="${'R$ ' + #numbers.formatDecimal(product.price, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</td>
+                <td>
+                    <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-sm btn-outline-warning">Editar</a>
+                    <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-sm btn-outline-danger"
+                       onclick="return confirm('Tem certeza que deseja excluir este produto?')">Excluir</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
